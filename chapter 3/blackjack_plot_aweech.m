@@ -12,10 +12,13 @@ for i = 1:1000
     lastw(i) = win(100);
 end
 
-plot(lastw, "k")
-hold on
-plot(minw, "r")
-plot(maxw, "b")
-title("Potential Earnings from Blackjack")
-xlabel("Simulation")
-ylabel("Earnings (USD)")
+data = [maxw minw lastw];
+csvwrite("bjdata.csv", data)
+
+%plot(lastw, "k")
+%hold on
+%plot(minw, "r")
+%plot(maxw, "b")
+%title("Potential Earnings from Blackjack")
+%xlabel("Simulation")
+%ylabel("Earnings (USD)")
