@@ -13,7 +13,9 @@ for i = 1:1000
 end
 
 data = [maxw minw lastw];
-csvwrite("bjdata.csv", data)
+csvwrite("bjdata.csv", data);
+display(mean(lastw))
+display(sum(lastw > 0))
 
 %plot(lastw, "k")
 %hold on
