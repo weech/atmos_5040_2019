@@ -1,8 +1,8 @@
 clear all
 close all
 
-disp(' John Horel')
-disp(' ATMOS 5040/ Spring 2019')
+disp(' Alex Weech')
+disp(' ATMOS 6040/ Spring 2019')
 disp(' Chapter 3')
 disp(' hundred year flood on Bear River')
 
@@ -21,7 +21,7 @@ bar(date,flow)
 axis([1950 2018 0 10000])
 xlabel('Date');
 ylabel('Streamflow ft^3/s');
-title('Bear River  Streamflow: John Horel 2/10/19');
+title('Bear River  Streamflow: Alex Weech 2/19/19');
 hold on
 grid on
 %going to add some lines to this figure in a bit
@@ -45,7 +45,7 @@ hold on
 plot(xf,pdfw_flow,'g')
 xlabel(' Flow (ft^3/s)');
 ylabel('Fractional Contribution');
-title('Bear River Flow, Weibull Fit: John Horel 2/10/19');
+title('Bear River Flow, Weibull Fit: Alex Weech 2/19/19');
 pdf_sum = sum(pdfw_flow);
 % plot cumulative distribution
 subplot(1,2,2)
@@ -55,7 +55,7 @@ hold on
 axis([yf(1) yf(length(yf)) 0 1])
 xlabel('Flow (ft^3/s)');
 ylabel('Cumulative Distribution');
-title('Bear River CDF &  Weibull Fit: John Horel 2/10/19');
+title('Bear River CDF &  Weibull Fit: Alex Weech 2/19/19');
 nf = length(xf);
 cdfw_flow(nf)= 0;
 for i = 2:nf
@@ -93,7 +93,7 @@ loglog(qe,flows,'x')
 axis([100 10000 100 10000]);
 xlabel('Weibull Estimate of Peak flow');
 ylabel('Observed Peak Flow (ft^3/s)');
-title('Bear River Quantile-Quantile with Weibull Fit: 2/10/19');
+title('Bear River Quantile-Quantile with Weibull Fit: 2/19/19');
 
 
 %create probability-probability plot for weibull for klamath flow
@@ -112,7 +112,7 @@ loglog(rm,opc,'x')
 axis([.001 1 .001 1])
 xlabel('Weibull Probability Estimate');
 ylabel('Observed Probability');
-title('Bear River Prob-Prob Plot with Weibull Fit: 1/20/19');
+title('Bear River Prob-Prob Plot with Weibull Fit: 2/19/19');
 
 figure(11)
 % add some guestimates for one in a hundred year floods 
@@ -137,5 +137,37 @@ g99_we(:,1) = yr(g99w);
 g99_we(:,2) = mon(g99w);
 g99_we(:,3) = flow(g99w);
 
+%%% Question 4
+idx99p = find(flow >= emp99);
+em99 = zeros(length(idx99p), 3);
+em99(:, 1) = yr(idx99p);
+em99(:, 2) = mon(idx99p);
+em99(:, 3) = flow(idx99p);
 
+idx99p = find(flow >= qw99);
+we99 = zeros(length(idx99p), 3);
+we99(:, 1) = yr(idx99p);
+we99(:, 2) = mon(idx99p);
+we99(:, 3) = flow(idx99p);
 
+disp(sortrows(em99, 3));
+disp(sortrows(we99, 3));
+
+%%% Question 5
+qw05 = beta * (-log(.95)).^(1/alpha);
+emp05 = interp1q(cf', yf', .05);
+
+idx5p = find(flow <= emp05);
+em5 = zeros(length(idx5p), 3);
+em5(:, 1) = yr(idx5p);
+em5(:, 2) = mon(idx5p);
+em5(:, 3) = flow(idx5p);
+
+idx5p = find(flow <= qw05);
+we5 = zeros(length(idx5p), 3);
+we5(:, 1) = yr(idx5p);
+we5(:, 2) = mon(idx5p);
+we5(:, 3) = flow(idx5p);
+
+disp(sortrows(em5, 3));
+disp(sortrows(we5, 3));
